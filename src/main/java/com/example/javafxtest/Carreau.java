@@ -23,11 +23,11 @@ public class Carreau extends Rectangle {
         piece= null;
         if((x+y)%2==1){
             couleur=Couleur.Noir;
-            this.setFill(Color.BLACK);
+            this.setFill(Color.SADDLEBROWN);
         }
         else{
             couleur= Couleur.Blanc;
-            this.setFill(Color.WHITE);
+            this.setFill(Color.BEIGE);
         }
         this.setOnMouseClicked(new EventHandler<MouseEvent>()
         {

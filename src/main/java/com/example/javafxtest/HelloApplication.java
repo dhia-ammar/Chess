@@ -12,12 +12,12 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Group g= new Group();
+        //Group g= new Group();
         Echequier ech = new Echequier();
         ech.remplire();
-        g= ech.renderEchequier();
-        Scene scene = new Scene(g);
-        stage.setTitle("Hello!");
+        ech.renderEchequier();
+        Scene scene = new Scene(ech);
+        stage.setTitle("Chess");
         stage.setScene(scene);
         stage.show();
     }

@@ -4,7 +4,7 @@ import javafx.scene.Group;
 
 import java.util.Arrays;
 
-public class Echequier {
+public class Echequier extends Group{
     Carreau[] table;
     int longuer=8;
     int largeur=8;
@@ -18,12 +18,11 @@ public class Echequier {
         }
     }
 
-    public Group renderEchequier(){
-        Group g=new Group();
+    public void renderEchequier(){
+
         for (Carreau c:table) {
-            g.getChildren().add(c);
+            this.getChildren().add(c);
         }
-        return g;
     }
     public void remplire(){
 
