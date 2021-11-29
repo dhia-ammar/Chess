@@ -1,5 +1,7 @@
 package com.example.javafxtest;
 
+import javafx.scene.Group;
+
 import java.util.Arrays;
 
 public class Echequier {
@@ -14,6 +16,14 @@ public class Echequier {
                 table[(i*8)+j]=new Carreau(i,j);
             }
         }
+    }
+
+    public Group renderEchequier(){
+        Group g=new Group();
+        for (Carreau c:table) {
+            g.getChildren().add(c);
+        }
+        return g;
     }
     public void remplire(){
 
