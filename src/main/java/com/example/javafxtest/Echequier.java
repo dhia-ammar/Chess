@@ -22,61 +22,51 @@ public class Echequier {
                 Couleur side  = Couleur.Blanc;
                 if (c.getPosition().getValue()==0){
                     if(c.getPosition().getKey()==0 || c.getPosition().getKey()==7){
-                        c.ajouterPiece(new Tour());
+                        c.ajouterPiece(new Tour(c.getPosition(),side));
                     }
                     if(c.getPosition().getKey()==1 || c.getPosition().getKey()==6){
-                        c.ajouterPiece(new Chavalier());
+                        c.ajouterPiece(new Chavalier(c.getPosition(),side));
                     }
                     if(c.getPosition().getKey()==2 || c.getPosition().getKey()==5){
-                        c.ajouterPiece(new Fou());
+                        c.ajouterPiece(new Fou(c.getPosition(),side));
                     }
                     if(c.getPosition().getKey()==3){
-                        c.ajouterPiece(new Roi());
+                        c.ajouterPiece(new Roi(c.getPosition(),side));
                     }
                     if(c.getPosition().getKey()==4){
-                        c.ajouterPiece(new Dame());
+                        c.ajouterPiece(new Dame(c.getPosition(),side));
                     }
                 }
                 else{
-                    c.ajouterPiece(new Pion());
+                    c.ajouterPiece(new Pion(c.getPosition(),side));
                 }
             }
             else if (c.getPosition().getValue()>5 ){
                 Couleur side  = Couleur.Noir;
                 if (c.getPosition().getValue()==7){
                     if(c.getPosition().getKey()==0 || c.getPosition().getKey()==7){
-                        c.ajouterPiece(new Tour());
+                        c.ajouterPiece(new Tour(c.getPosition(),side));
                     }
                     if(c.getPosition().getKey()==1 || c.getPosition().getKey()==6){
-                        c.ajouterPiece(new Chavalier());
+                        c.ajouterPiece(new Chavalier(c.getPosition(),side));
                     }
                     if(c.getPosition().getKey()==2 || c.getPosition().getKey()==5){
-                        c.ajouterPiece(new Fou());
+                        c.ajouterPiece(new Fou(c.getPosition(),side));
                     }
                     if(c.getPosition().getKey()==3){
-                        c.ajouterPiece(new Roi());
+                        c.ajouterPiece(new Roi(c.getPosition(),side));
                     }
                     if(c.getPosition().getKey()==4){
-                        c.ajouterPiece(new Dame());
+                        c.ajouterPiece(new Dame(c.getPosition(),side));
                     }
                 }
                 else{
-                    c.ajouterPiece(new Pion());
+                    c.ajouterPiece(new Pion(c.getPosition(),side));
                 }
             }
         }
     }
-    public void nulls(){
 
-        /*int i=0;
-        for (Carreau c:table
-             ) {
-            if (c == null){
-                System.out.println(i);
-            }
-            i++;
-        }*/
-    }
     @Override
     public String toString() {
         String ch="";

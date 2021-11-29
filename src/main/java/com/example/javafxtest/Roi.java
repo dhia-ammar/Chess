@@ -5,6 +5,12 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 
 public class Roi extends Piece{
+    private boolean jamaisDeplace;
+
+    public Roi(Pair<Integer, Integer> position, Couleur couleur) {
+        super(position, couleur);
+        this.jamaisDeplace=true;
+    }
 
     @Override
     public void deplacer() {
@@ -40,5 +46,13 @@ public class Roi extends Piece{
     @Override
     public String toString() {
         return "R";
+    }
+
+    public boolean isJamaisDeplace() {
+        return jamaisDeplace;
+    }
+
+    public void setJamaisDeplace(boolean jamaisDeplace) {
+        this.jamaisDeplace = jamaisDeplace;
     }
 }

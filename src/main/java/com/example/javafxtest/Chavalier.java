@@ -5,6 +5,11 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 
 public class Chavalier extends Piece{
+
+    public Chavalier(Pair<Integer, Integer> position, Couleur couleur) {
+        super(position, couleur);
+    }
+
     @Override
     public void deplacer() {
 

@@ -6,6 +6,10 @@ public abstract class Piece implements InterfacePiece{
     Couleur couleur=null;
     Pair<Integer,Integer> position=null;
 
+    public Piece(Pair<Integer,Integer> position,Couleur couleur){
+        this.position=position;
+        this.couleur=couleur;
+    }
     public Couleur getCouleur() {
         return couleur;
     }

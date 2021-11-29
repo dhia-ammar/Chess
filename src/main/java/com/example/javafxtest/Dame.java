@@ -5,6 +5,12 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 
 public class Dame extends Piece{
+
+
+    public Dame(Pair<Integer, Integer> position, Couleur couleur) {
+        super(position, couleur);
+    }
+
     @Override
     public void deplacer() {
 
