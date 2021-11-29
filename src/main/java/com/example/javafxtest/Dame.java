@@ -17,7 +17,35 @@ public class Dame extends Piece{
     }
     @Override
     public ArrayList<Pair<Integer, Integer>> deplacementsPossbiles() {
-        return null;
+        ArrayList<Pair<Integer, Integer>> deplacements=new ArrayList<Pair<Integer,Integer>>();
+        Pair<Integer, Integer> deplacement=null;
+        int currX = position.getKey();
+        int currY = position.getValue();
+        int x;
+        int y;
+        for (int i = -7; i < 8; i++) {
+
+            if (i!=0){
+                x=currX+i;
+                y=currY+i;
+                if (x>=0 && y>=0 && y<8 && x<8 )
+                    deplacement=new Pair<>(i,currY);
+                deplacements.add(deplacement);
+            }
+        }
+        for (int i = 0; i < 8; i++) {
+            if (i!=currX){
+                deplacement=new Pair<>(i,currY);
+                deplacements.add(deplacement);
+            }
+        }
+        for (int j = 0; j < 8; j++) {
+            if (j!=currY){
+                deplacement=new Pair<>(currX,j);
+                deplacements.add(deplacement);
+            }
+        }
+        return deplacements;
     }
     @Override
     public void detruire() {
