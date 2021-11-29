@@ -13,11 +13,11 @@ public class Carreau extends Rectangle {
     boolean contientPiece;
     Piece piece;
     Couleur couleur;
-    private static int longuer=100;
-    public static int largeur=100;
+    private static final int LONGUER=100;
+    public static final int LARGEUR=100;
 
     public Carreau(int x,int y){
-        super(100*x,100*y,longuer,largeur);
+        super(100*x,100*y,LONGUER,LARGEUR);
         position=new Pair<>(x,y);
         contientPiece=false;
         piece= null;
