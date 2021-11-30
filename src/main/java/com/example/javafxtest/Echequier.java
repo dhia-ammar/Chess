@@ -1,7 +1,9 @@
 package com.example.javafxtest;
 
 import javafx.scene.Group;
+import javafx.util.Pair;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Echequier extends Group{
@@ -86,5 +88,15 @@ public class Echequier extends Group{
             ch+="\n";
         }
         return ch;
+    }
+
+    public void colorBoxes(ArrayList<Pair<Integer, Integer>> deplacementsPossbiles) {
+        for (Carreau c:table) {
+            c.color();
+            if (deplacementsPossbiles.contains(c.getPosition())){
+                c.changeColor();
+            }
+
+        }
     }
 }

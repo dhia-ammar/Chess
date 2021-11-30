@@ -23,18 +23,14 @@ public class Carreau extends Rectangle {
         piece= null;
         if((x+y)%2==1){
             couleur=Couleur.Noir;
-            this.setFill(Color.SADDLEBROWN);
         }
         else{
             couleur= Couleur.Blanc;
-            this.setFill(Color.BEIGE);
         }
-        this.setOnMouseClicked(new EventHandler<MouseEvent>()
-        {
-            @Override
-            public void handle(MouseEvent t) {
-                System.out.println(getPiece().toString());
-            }
+        this.color();
+        this.setOnMouseClicked(t -> {System.out.println(getPiece().toString());
+        Echequier e = (Echequier) this.getParent();
+        e.colorBoxes(this.getPiece().deplacementsPossbiles());
         });
     }
     public void ajouterPiece(Piece p){
@@ -86,6 +82,19 @@ public class Carreau extends Rectangle {
         }
         else{
             return piece.toString();
+        }
+    }
+
+    public void changeColor() {
+        this.setFill(Color.GREEN);
+    }
+    public void color(){
+        if(this.couleur.equals(couleur.Noir)){
+            this.setFill(Color.SADDLEBROWN);
+        }
+        else{
+            couleur= Couleur.Blanc;
+            this.setFill(Color.BEIGE);
         }
     }
 }

@@ -26,16 +26,14 @@ public class Pion extends Piece{
         Pair<Integer, Integer> deplacement=null;
         int currX = position.getKey();
         int currY = position.getValue();
-        int x;
         int y;
-        x=currX+1;
         y=currY+1;
-        deplacement=new Pair<>(x,y);
+        deplacement=new Pair<>(currX,y);
         deplacements.add(deplacement);
         if (jamaisDeplace){
-            x=currX+2;
+
             y=currY+2;
-            deplacement=new Pair<>(x,y);
+            deplacement=new Pair<>(currX,y);
             deplacements.add(deplacement);
         }
         return deplacements;
@@ -51,7 +49,7 @@ public class Pion extends Piece{
         return "P";
     }
 
-    public boolean isJamaisDeplace() {
+    public boolean estJamaisDeplace() {
         return jamaisDeplace;
     }
 
