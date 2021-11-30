@@ -46,7 +46,8 @@ public class Pion extends Piece{
 
     @Override
     public String toString() {
-        return "P";
+        String ch = "P "+couleur.name();
+        return ch;
     }
 
     public boolean estJamaisDeplace() {

@@ -17,11 +17,11 @@ public class Carreau extends Rectangle {
     public static final int LARGEUR=100;
 
     public Carreau(int x,int y){
-        super(100*x,100*y,LONGUER,LARGEUR);
+        super(100*x,700-100*y,LONGUER,LARGEUR);
         position=new Pair<>(x,y);
         contientPiece=false;
         piece= null;
-        if((x+y)%2==1){
+        if((x+y)%2==0){
             couleur=Couleur.Noir;
         }
         else{

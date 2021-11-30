@@ -54,6 +54,7 @@ public class Dame extends Piece{
 
     @Override
     public String toString() {
-        return "D";
+        String ch = "D "+couleur.name();
+        return ch;
     }
 }

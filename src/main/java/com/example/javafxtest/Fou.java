@@ -40,6 +40,7 @@ public class Fou extends Piece{
     }
     @Override
     public String toString() {
-        return "F";
+        String ch = "F "+couleur.name();
+        return ch;
     }
 }

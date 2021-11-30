@@ -80,7 +80,8 @@ public class Chavalier extends Piece{
 
     @Override
     public String toString() {
-        return "C";
+        String ch = "C "+couleur.name();
+        return ch;
     }
 
 

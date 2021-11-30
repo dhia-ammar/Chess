@@ -43,7 +43,8 @@ public class Tour extends Piece{
     }
     @Override
     public String toString() {
-        return "T";
+        String ch = "T "+couleur.name();
+        return ch;
     }
 
     public boolean isJamaisDeplace() {
