@@ -2,11 +2,11 @@ package com.example.javafxtest;
 
 import javafx.util.Pair;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public interface InterfacePiece {
 
     public void deplacer();
     public void detruire();
-    public ArrayList<Pair<Integer,Integer>> deplacementsPossbiles();
+    public HashSet<Pair<Integer,Integer>> deplacementsPossbiles();
 }

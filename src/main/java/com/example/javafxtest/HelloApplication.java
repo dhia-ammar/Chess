@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 import java.io.IOException;
 
@@ -15,6 +16,7 @@ public class HelloApplication extends Application {
         //Group g= new Group();
         Echequier ech = new Echequier();
         ech.remplire();
+        ech.addToMid(new Dame(new Pair<Integer,Integer>(3,3),Couleur.Noir));
         ech.renderEchequier();
         Scene scene = new Scene(ech);
         stage.setTitle("Chess");

@@ -97,4 +97,7 @@ public class Carreau extends Rectangle {
             this.setFill(Color.BEIGE);
         }
     }
+    public void color(Color c){
+            this.setFill(c);
+    }
 }

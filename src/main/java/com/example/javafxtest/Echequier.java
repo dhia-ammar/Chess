@@ -1,10 +1,13 @@
 package com.example.javafxtest;
 
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 public class Echequier extends Group{
     Carreau[] table;
@@ -90,7 +93,7 @@ public class Echequier extends Group{
         return ch;
     }
 
-    public void colorBoxes(ArrayList<Pair<Integer, Integer>> deplacementsPossbiles) {
+    public void colorBoxes(HashSet<Pair<Integer, Integer>> deplacementsPossbiles) {
         for (Carreau c:table) {
             c.color();
             if (deplacementsPossbiles.contains(c.getPosition())){
@@ -98,5 +101,9 @@ public class Echequier extends Group{
             }
 
         }
+    }
+    public void addToMid(Piece P){
+        table[27].ajouterPiece(P);
+        table[27].color(Color.RED);
     }
 }

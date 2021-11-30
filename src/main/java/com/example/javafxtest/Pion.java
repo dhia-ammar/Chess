@@ -1,7 +1,10 @@
 package com.example.javafxtest;
 
 import javafx.util.Pair;
-import java.util.ArrayList;
+
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Pion extends Piece{
     private boolean jamaisDeplace;
@@ -21,20 +24,33 @@ public class Pion extends Piece{
     }
 
     @Override
-    public ArrayList<Pair<Integer, Integer>> deplacementsPossbiles() {
-        ArrayList<Pair<Integer, Integer>> deplacements=new ArrayList<Pair<Integer,Integer>>();
+    public HashSet<Pair<Integer, Integer>> deplacementsPossbiles() {
+        HashSet<Pair<Integer, Integer>> deplacements=new HashSet<Pair<Integer,Integer>>();
         Pair<Integer, Integer> deplacement=null;
         int currX = position.getKey();
         int currY = position.getValue();
         int y;
-        y=currY+1;
-        deplacement=new Pair<>(currX,y);
-        deplacements.add(deplacement);
-        if (jamaisDeplace){
-
-            y=currY+2;
+        if (this.couleur == Couleur.Blanc){
+            y=currY+1;
             deplacement=new Pair<>(currX,y);
             deplacements.add(deplacement);
+            if (jamaisDeplace){
+
+                y=currY+2;
+                deplacement=new Pair<>(currX,y);
+                deplacements.add(deplacement);
+            }
+        }
+        else{
+            y=currY-1;
+            deplacement=new Pair<>(currX,y);
+            deplacements.add(deplacement);
+            if (jamaisDeplace){
+
+                y=currY-2;
+                deplacement=new Pair<>(currX,y);
+                deplacements.add(deplacement);
+            }
         }
         return deplacements;
     }

@@ -2,7 +2,7 @@ package com.example.javafxtest;
 
 import javafx.util.Pair;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Chavalier extends Piece{
 
@@ -15,8 +15,8 @@ public class Chavalier extends Piece{
 
     }
     @Override
-    public ArrayList<Pair<Integer, Integer>> deplacementsPossbiles() {
-        ArrayList<Pair<Integer, Integer>> deplacements=new ArrayList<Pair<Integer,Integer>>();
+    public HashSet<Pair<Integer, Integer>> deplacementsPossbiles() {
+        HashSet<Pair<Integer, Integer>> deplacements=new HashSet<>();
         Pair<Integer, Integer> deplacement=null;
         int currX = position.getKey();
         int currY = position.getValue();
@@ -64,8 +64,8 @@ public class Chavalier extends Piece{
             deplacement =new Pair<>(x,y);
             deplacements.add(deplacement);
         }
-        x=currX-2;
-        y=currY-1;
+        x=currX-1;
+        y=currY-2;
         if (x>=0 && y>=0 && y<8 && x<8){
             deplacement =new Pair<>(x,y);
             deplacements.add(deplacement);

@@ -2,7 +2,8 @@ package com.example.javafxtest;
 
 import javafx.util.Pair;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 public class Roi extends Piece{
     private boolean jamaisDeplace;
@@ -17,8 +18,8 @@ public class Roi extends Piece{
 
     }
     @Override
-    public ArrayList<Pair<Integer, Integer>> deplacementsPossbiles() {
-        ArrayList<Pair<Integer, Integer>> deplacements=new ArrayList<Pair<Integer,Integer>>();
+    public HashSet<Pair<Integer, Integer>> deplacementsPossbiles() {
+        HashSet<Pair<Integer, Integer>> deplacements= new HashSet<Pair<Integer, Integer>>();
         Pair<Integer, Integer> deplacement=null;
         int currX = position.getKey();
         int currY = position.getValue();
