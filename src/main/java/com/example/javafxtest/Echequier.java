@@ -4,6 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -13,6 +14,7 @@ public class Echequier extends Group{
     Carreau[] table;
     int longuer=8;
     int largeur=8;
+    Piece pieceSelectionne=null;
 
     public Echequier(){
         table=new Carreau[longuer*largeur];
@@ -29,7 +31,7 @@ public class Echequier extends Group{
             this.getChildren().add(c);
         }
     }
-    public void remplire(){
+    public void remplire() throws IOException {
 
         for (Carreau c:table) {
             if (c.getPosition().getValue()<2 ){
@@ -93,6 +95,14 @@ public class Echequier extends Group{
         return ch;
     }
 
+    public Piece getPieceSelectionne() {
+        return pieceSelectionne;
+    }
+
+    public void setPieceSelectionne(Piece pieceSelectionne) {
+        this.pieceSelectionne = pieceSelectionne;
+    }
+
     public void colorBoxes(HashSet<Pair<Integer, Integer>> deplacementsPossbiles) {
         for (Carreau c:table) {
             c.color();
@@ -105,5 +115,24 @@ public class Echequier extends Group{
     public void addToMid(Piece P){
         table[27].ajouterPiece(P);
         table[27].color(Color.RED);
+    }
+
+    public void deplacerPiece(Carreau carreau) {
+        if (pieceSelectionne.deplacementsPossbiles().contains(carreau.getPosition())){
+            for (Carreau c:table) {
+                if (c.getPosition()==pieceSelectionne.getPosition()){
+                    c.setPiece(null);
+                    break;
+                }
+            }
+            pieceSelectionne.deplacer(carreau.getPosition());
+            carreau.setPiece(pieceSelectionne);
+        }
+        else {
+            pieceSelectionne=null;
+        }
+        for (Carreau c:table) {
+            c.color();
+        }
     }
 }

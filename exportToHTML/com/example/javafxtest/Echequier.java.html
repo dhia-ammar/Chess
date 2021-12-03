@@ -1,0 +1,157 @@
+<html>
+<head>
+<title>Echequier.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6897bb;}
+.s3 { color: #6a8759;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Echequier.java</font>
+</center></td></tr></table>
+<pre><span class="s0">package </span><span class="s1">com.example.javafxtest</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">javafx.scene.Group</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.scene.paint.Color</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">javafx.util.Pair</span><span class="s0">;</span>
+
+<span class="s0">import </span><span class="s1">java.util.ArrayList</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.Arrays</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.HashSet</span><span class="s0">;</span>
+<span class="s0">import </span><span class="s1">java.util.TreeSet</span><span class="s0">;</span>
+
+<span class="s0">public class </span><span class="s1">Echequier </span><span class="s0">extends </span><span class="s1">Group{</span>
+    <span class="s1">Carreau[] table</span><span class="s0">;</span>
+    <span class="s0">int </span><span class="s1">longuer=</span><span class="s2">8</span><span class="s0">;</span>
+    <span class="s0">int </span><span class="s1">largeur=</span><span class="s2">8</span><span class="s0">;</span>
+    <span class="s1">Piece pieceSelectionne=</span><span class="s0">null;</span>
+
+    <span class="s0">public </span><span class="s1">Echequier(){</span>
+        <span class="s1">table=</span><span class="s0">new </span><span class="s1">Carreau[longuer*largeur]</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i=</span><span class="s2">0</span><span class="s0">;</span><span class="s1">i&lt;longuer</span><span class="s0">;</span><span class="s1">i++){</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; largeur</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s1">table[(i*</span><span class="s2">8</span><span class="s1">)+j]=</span><span class="s0">new </span><span class="s1">Carreau(i</span><span class="s0">,</span><span class="s1">j)</span><span class="s0">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">renderEchequier(){</span>
+
+        <span class="s0">for </span><span class="s1">(Carreau c:table) {</span>
+            <span class="s0">this</span><span class="s1">.getChildren().add(c)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">remplire(){</span>
+
+        <span class="s0">for </span><span class="s1">(Carreau c:table) {</span>
+            <span class="s0">if </span><span class="s1">(c.getPosition().getValue()&lt;</span><span class="s2">2 </span><span class="s1">){</span>
+                <span class="s1">Couleur side  = Couleur.Blanc</span><span class="s0">;</span>
+                <span class="s0">if </span><span class="s1">(c.getPosition().getValue()==</span><span class="s2">0</span><span class="s1">){</span>
+                    <span class="s0">if</span><span class="s1">(c.getPosition().getKey()==</span><span class="s2">0 </span><span class="s1">|| c.getPosition().getKey()==</span><span class="s2">7</span><span class="s1">){</span>
+                        <span class="s1">c.ajouterPiece(</span><span class="s0">new </span><span class="s1">Tour(c.getPosition()</span><span class="s0">,</span><span class="s1">side))</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">if</span><span class="s1">(c.getPosition().getKey()==</span><span class="s2">1 </span><span class="s1">|| c.getPosition().getKey()==</span><span class="s2">6</span><span class="s1">){</span>
+                        <span class="s1">c.ajouterPiece(</span><span class="s0">new </span><span class="s1">Chavalier(c.getPosition()</span><span class="s0">,</span><span class="s1">side))</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">if</span><span class="s1">(c.getPosition().getKey()==</span><span class="s2">2 </span><span class="s1">|| c.getPosition().getKey()==</span><span class="s2">5</span><span class="s1">){</span>
+                        <span class="s1">c.ajouterPiece(</span><span class="s0">new </span><span class="s1">Fou(c.getPosition()</span><span class="s0">,</span><span class="s1">side))</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">if</span><span class="s1">(c.getPosition().getKey()==</span><span class="s2">3</span><span class="s1">){</span>
+                        <span class="s1">c.ajouterPiece(</span><span class="s0">new </span><span class="s1">Roi(c.getPosition()</span><span class="s0">,</span><span class="s1">side))</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">if</span><span class="s1">(c.getPosition().getKey()==</span><span class="s2">4</span><span class="s1">){</span>
+                        <span class="s1">c.ajouterPiece(</span><span class="s0">new </span><span class="s1">Dame(c.getPosition()</span><span class="s0">,</span><span class="s1">side))</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+                <span class="s0">else</span><span class="s1">{</span>
+                    <span class="s1">c.ajouterPiece(</span><span class="s0">new </span><span class="s1">Pion(c.getPosition()</span><span class="s0">,</span><span class="s1">side))</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s0">else if </span><span class="s1">(c.getPosition().getValue()&gt;</span><span class="s2">5 </span><span class="s1">){</span>
+                <span class="s1">Couleur side  = Couleur.Noir</span><span class="s0">;</span>
+                <span class="s0">if </span><span class="s1">(c.getPosition().getValue()==</span><span class="s2">7</span><span class="s1">){</span>
+                    <span class="s0">if</span><span class="s1">(c.getPosition().getKey()==</span><span class="s2">0 </span><span class="s1">|| c.getPosition().getKey()==</span><span class="s2">7</span><span class="s1">){</span>
+                        <span class="s1">c.ajouterPiece(</span><span class="s0">new </span><span class="s1">Tour(c.getPosition()</span><span class="s0">,</span><span class="s1">side))</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">if</span><span class="s1">(c.getPosition().getKey()==</span><span class="s2">1 </span><span class="s1">|| c.getPosition().getKey()==</span><span class="s2">6</span><span class="s1">){</span>
+                        <span class="s1">c.ajouterPiece(</span><span class="s0">new </span><span class="s1">Chavalier(c.getPosition()</span><span class="s0">,</span><span class="s1">side))</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">if</span><span class="s1">(c.getPosition().getKey()==</span><span class="s2">2 </span><span class="s1">|| c.getPosition().getKey()==</span><span class="s2">5</span><span class="s1">){</span>
+                        <span class="s1">c.ajouterPiece(</span><span class="s0">new </span><span class="s1">Fou(c.getPosition()</span><span class="s0">,</span><span class="s1">side))</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">if</span><span class="s1">(c.getPosition().getKey()==</span><span class="s2">3</span><span class="s1">){</span>
+                        <span class="s1">c.ajouterPiece(</span><span class="s0">new </span><span class="s1">Roi(c.getPosition()</span><span class="s0">,</span><span class="s1">side))</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                    <span class="s0">if</span><span class="s1">(c.getPosition().getKey()==</span><span class="s2">4</span><span class="s1">){</span>
+                        <span class="s1">c.ajouterPiece(</span><span class="s0">new </span><span class="s1">Dame(c.getPosition()</span><span class="s0">,</span><span class="s1">side))</span><span class="s0">;</span>
+                    <span class="s1">}</span>
+                <span class="s1">}</span>
+                <span class="s0">else</span><span class="s1">{</span>
+                    <span class="s1">c.ajouterPiece(</span><span class="s0">new </span><span class="s1">Pion(c.getPosition()</span><span class="s0">,</span><span class="s1">side))</span><span class="s0">;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s1">@Override</span>
+    <span class="s0">public </span><span class="s1">String toString() {</span>
+        <span class="s1">String ch=</span><span class="s3">&quot;&quot;</span><span class="s0">;</span>
+        <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">i = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">i &lt; longuer</span><span class="s0">; </span><span class="s1">i++) {</span>
+            <span class="s0">for </span><span class="s1">(</span><span class="s0">int </span><span class="s1">j = </span><span class="s2">0</span><span class="s0">; </span><span class="s1">j &lt; largeur</span><span class="s0">; </span><span class="s1">j++) {</span>
+                <span class="s1">ch+=table[(i*</span><span class="s2">8</span><span class="s1">)+j].toString()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+            <span class="s1">ch+=</span><span class="s3">&quot;</span><span class="s0">\n</span><span class="s3">&quot;</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">return </span><span class="s1">ch</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public </span><span class="s1">Piece getPieceSelectionne() {</span>
+        <span class="s0">return </span><span class="s1">pieceSelectionne</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">setPieceSelectionne(Piece pieceSelectionne) {</span>
+        <span class="s0">this</span><span class="s1">.pieceSelectionne = pieceSelectionne</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">colorBoxes(HashSet&lt;Pair&lt;Integer</span><span class="s0">, </span><span class="s1">Integer&gt;&gt; deplacementsPossbiles) {</span>
+        <span class="s0">for </span><span class="s1">(Carreau c:table) {</span>
+            <span class="s1">c.color()</span><span class="s0">;</span>
+            <span class="s0">if </span><span class="s1">(deplacementsPossbiles.contains(c.getPosition())){</span>
+                <span class="s1">c.changeColor()</span><span class="s0">;</span>
+            <span class="s1">}</span>
+
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+    <span class="s0">public void </span><span class="s1">addToMid(Piece P){</span>
+        <span class="s1">table[</span><span class="s2">27</span><span class="s1">].ajouterPiece(P)</span><span class="s0">;</span>
+        <span class="s1">table[</span><span class="s2">27</span><span class="s1">].color(Color.RED)</span><span class="s0">;</span>
+    <span class="s1">}</span>
+
+    <span class="s0">public void </span><span class="s1">deplacerPiece(Carreau carreau) {</span>
+        <span class="s0">if </span><span class="s1">(pieceSelectionne.deplacementsPossbiles().contains(carreau.getPosition())){</span>
+            <span class="s0">for </span><span class="s1">(Carreau c:table) {</span>
+                <span class="s0">if </span><span class="s1">(c.getPosition()==pieceSelectionne.getPosition()){</span>
+                    <span class="s1">c.setPiece(</span><span class="s0">null</span><span class="s1">)</span><span class="s0">;</span>
+                    <span class="s0">break;</span>
+                <span class="s1">}</span>
+            <span class="s1">}</span>
+            <span class="s1">pieceSelectionne.deplacer(carreau.getPosition())</span><span class="s0">;</span>
+            <span class="s1">carreau.setPiece(pieceSelectionne)</span><span class="s0">;</span>
+        <span class="s1">}</span>
+        <span class="s0">else </span><span class="s1">{</span>
+            <span class="s1">pieceSelectionne=</span><span class="s0">null;</span>
+        <span class="s1">}</span>
+        <span class="s0">for </span><span class="s1">(Carreau c:table) {</span>
+            <span class="s1">c.color()</span><span class="s0">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>

@@ -1,7 +1,11 @@
 package com.example.javafxtest;
 
+import javafx.scene.image.Image;
 import javafx.util.Pair;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
@@ -9,9 +13,10 @@ import java.util.TreeSet;
 public class Pion extends Piece{
     private boolean jamaisDeplace;
 
-    public Pion(Pair<Integer, Integer> position, Couleur couleur) {
+    public Pion(Pair<Integer, Integer> position, Couleur couleur) throws IOException {
         super(position, couleur);
         this.jamaisDeplace = true;
+        this.image=new Image(getClass().getResource("/Assets/Black/pion-03.png").toExternalForm());
     }
 
     @Override
@@ -73,4 +78,5 @@ public class Pion extends Piece{
     public void setJamaisDeplace(boolean jamaisDeplace) {
         this.jamaisDeplace = jamaisDeplace;
     }
+
 }

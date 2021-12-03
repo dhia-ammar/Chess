@@ -16,7 +16,7 @@ public class HelloApplication extends Application {
         //Group g= new Group();
         Echequier ech = new Echequier();
         ech.remplire();
-        ech.addToMid(new Dame(new Pair<Integer,Integer>(3,3),Couleur.Noir));
+        ech.addToMid(new Fou(new Pair<Integer,Integer>(3,3),Couleur.Noir));
         ech.renderEchequier();
         Scene scene = new Scene(ech);
         stage.setTitle("Chess");
@@ -24,7 +24,7 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws  IOException{
         Echequier ech = new Echequier();
         System.out.print(ech);
         ech.remplire();
