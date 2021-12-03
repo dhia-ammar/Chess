@@ -13,10 +13,6 @@ public class Tour extends Piece{
         this.jamaisDeplace=true;
     }
     @Override
-    public void deplacer() {
-
-    }
-    @Override
     public HashSet<Pair<Integer, Integer>> deplacementsPossbiles() {
         HashSet<Pair<Integer, Integer>> deplacements=new HashSet<Pair<Integer,Integer>>();
         Pair<Integer, Integer> deplacement=null;

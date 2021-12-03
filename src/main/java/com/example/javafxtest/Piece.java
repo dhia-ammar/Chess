@@ -28,6 +28,7 @@ public abstract class Piece implements InterfacePiece{
         this.position = position;
     }
 
+    @Override
     public void deplacer(Pair<Integer, Integer> position) {
         this.setPosition(position);
     }

@@ -20,7 +20,9 @@ public class Pion extends Piece{
     }
 
     @Override
-    public void deplacer() {
+    public void deplacer(Pair<Integer, Integer> position) {
+        super.deplacer(position);
+        jamaisDeplace=false;
 
     }
 

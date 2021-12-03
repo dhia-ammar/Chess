@@ -9,11 +9,6 @@ public class Chavalier extends Piece{
     public Chavalier(Pair<Integer, Integer> position, Couleur couleur) {
         super(position, couleur);
     }
-
-    @Override
-    public void deplacer() {
-
-    }
     @Override
     public HashSet<Pair<Integer, Integer>> deplacementsPossbiles() {
         HashSet<Pair<Integer, Integer>> deplacements=new HashSet<>();
