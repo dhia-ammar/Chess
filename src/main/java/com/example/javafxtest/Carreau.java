@@ -25,41 +25,31 @@ public class Carreau  extends StackPane{
     ImageView imageView;
 
     public Carreau(int x,int y){
-        //super(100*x,700-100*y,LONGUER,LARGEUR);
-
         Rectangle rect = new Rectangle(LONGUER,LARGEUR);
-        String colorName;
         if((x+y)%2==0){
             couleur=Couleur.Noir;
-            rect.setFill(Color.SADDLEBROWN);
         }
         else{
             couleur= Couleur.Blanc;
-            rect.setFill(Color.BEIGE);
         }
-
         this.getChildren().add(rect);
+        this.color();
         this.setAlignment(Pos.CENTER);
         position=new Pair<>(x,y);
         contientPiece=false;
         piece= null;
         this.setStyle("-fx-background-color:white;");
         this.setStyle("-fx-border-color:green; ");
-        //
-        //this.color();
-
         this.setOnMouseClicked(t -> {
             Echequier e = (Echequier) this.getParent();
-            System.out.println(getPiece().toString());
             if(this.getPiece()!=null){
                 System.out.println(getPiece().toString());
                 e.colorBoxes(this.getPiece().deplacementsPossbiles(((Echequier) this.getParent()).table));
-                e.setPieceSelectionne(this.getPiece());
+                e.setCarreauSelectionne(this);
             }
             else{
-                if (e.getPieceSelectionne()!=null){
-                    e.deplacerPiece(this);
-                    e.setPieceSelectionne(null);
+                if (e.getCarreauSelectionne()!=null){
+                    e.effectuerCoup(this);
                 }
             }
 
@@ -71,6 +61,7 @@ public class Carreau  extends StackPane{
     }
     public void enleverPiece(){
         this.piece=null;
+        this.getChildren().remove(1);
     }
 
     public Pair<Integer, Integer> getPosition() {

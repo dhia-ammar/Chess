@@ -28,7 +28,6 @@ public class Pion extends Piece{
     public void deplacer(Pair<Integer, Integer> position) {
         super.deplacer(position);
         jamaisDeplace=false;
-
     }
 
     public void promouvoir(){

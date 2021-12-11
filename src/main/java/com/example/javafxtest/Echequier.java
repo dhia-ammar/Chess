@@ -17,10 +17,9 @@ import java.util.TreeSet;
 
 public class Echequier extends TilePane{
     Carreau[] table;
-
     int longuer=8;
     int largeur=8;
-    Piece pieceSelectionne=null;
+    Carreau carreauSelectionne=null;
 
     public Echequier(){
         table=new Carreau[longuer*largeur];
@@ -109,12 +108,12 @@ public class Echequier extends TilePane{
         return ch;
     }
 
-    public Piece getPieceSelectionne() {
-        return pieceSelectionne;
+    public Carreau getCarreauSelectionne() {
+        return carreauSelectionne;
     }
 
-    public void setPieceSelectionne(Piece pieceSelectionne) {
-        this.pieceSelectionne = pieceSelectionne;
+    public void setCarreauSelectionne(Carreau carreauSelectionne) {
+        this.carreauSelectionne = carreauSelectionne;
     }
 
     public void colorBoxes(HashSet<Pair<Integer, Integer>> deplacementsPossbiles) {
@@ -123,25 +122,22 @@ public class Echequier extends TilePane{
             if (deplacementsPossbiles.contains(c.getPosition())){
                 c.changeColor();
             }
-
         }
     }
 
-
-    public void deplacerPiece(Carreau carreau) {
-        if (pieceSelectionne.deplacementsPossbiles(this.table).contains(carreau.getPosition())){
-            for (Carreau c:table) {
-                if (c.getPosition()==pieceSelectionne.getPosition()){
-                    c.ajouterPiece(null);
-                    break;
-                }
-            }
-            pieceSelectionne.deplacer(carreau.getPosition());
-            carreau.ajouterPiece(pieceSelectionne);
+    public void effectuerCoup(Carreau c){
+        if (carreauSelectionne.getPiece().deplacementsPossbiles(this.table).contains(c.getPosition())){
+            deplacerPiece(carreauSelectionne,c,carreauSelectionne.getPiece());
         }
-        else {
-            pieceSelectionne=null;
+        carreauSelectionne=null;
+        for (Carreau car:table) {
+            car.color();
         }
+    }
+    public void deplacerPiece(Carreau carreauDepart,Carreau carreauArrive,Piece piece) {
+        carreauDepart.enleverPiece();
+        carreauArrive.ajouterPiece(piece);
+        piece.deplacer(carreauArrive.getPosition());
         for (Carreau c:table) {
             c.color();
         }

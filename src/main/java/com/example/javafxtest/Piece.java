@@ -13,6 +13,7 @@ public abstract class Piece implements InterfacePiece{
         this.position=position;
         this.couleur=couleur;
     }
+
     public Couleur getCouleur() {
         return couleur;
     }
