@@ -1,6 +1,7 @@
 package com.example.javafxtest;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.util.Pair;
 
 public abstract class Piece implements InterfacePiece{
@@ -27,7 +28,12 @@ public abstract class Piece implements InterfacePiece{
     public void setPosition(Pair<Integer, Integer> position) {
         this.position = position;
     }
-
+    public ImageView getView(){
+        ImageView view = new ImageView(image);
+        view.setFitHeight(100);
+        view.setFitWidth(100);
+        return view;
+    }
     @Override
     public void deplacer(Pair<Integer, Integer> position) {
         this.setPosition(position);

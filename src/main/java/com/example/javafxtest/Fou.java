@@ -1,5 +1,6 @@
 package com.example.javafxtest;
 
+import javafx.scene.image.Image;
 import javafx.util.Pair;
 
 import java.util.HashSet;
@@ -9,6 +10,12 @@ public class Fou extends Piece{
 
     public Fou(Pair<Integer, Integer> position, Couleur couleur) {
         super(position, couleur);
+        if (couleur==Couleur.Noir){
+            this.image=new Image(getClass().getResource("/Assets/Black/fou-03.png").toExternalForm());
+        }
+        else{
+            this.image=new Image(getClass().getResource("/Assets/White/fou-03.png").toExternalForm());
+        }
     }
 
     @Override

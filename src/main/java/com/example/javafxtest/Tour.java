@@ -1,5 +1,6 @@
 package com.example.javafxtest;
 
+import javafx.scene.image.Image;
 import javafx.util.Pair;
 
 import java.util.HashSet;
@@ -11,6 +12,12 @@ public class Tour extends Piece{
     public Tour(Pair<Integer, Integer> position, Couleur couleur) {
         super(position, couleur);
         this.jamaisDeplace=true;
+        if (couleur==Couleur.Noir){
+            this.image=new Image(getClass().getResource("/Assets/Black/tour-03.png").toExternalForm());
+        }
+        else{
+            this.image=new Image(getClass().getResource("/Assets/White/tour-03.png").toExternalForm());
+        }
     }
     @Override
     public HashSet<Pair<Integer, Integer>> deplacementsPossbiles(Carreau[] table) {

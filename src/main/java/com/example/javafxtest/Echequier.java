@@ -1,6 +1,11 @@
 package com.example.javafxtest;
 
+import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 
@@ -10,28 +15,38 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-public class Echequier extends Group{
+public class Echequier extends TilePane{
     Carreau[] table;
+
     int longuer=8;
     int largeur=8;
     Piece pieceSelectionne=null;
 
     public Echequier(){
         table=new Carreau[longuer*largeur];
-        for (int i=0;i<longuer;i++){
-            for (int j = 0; j < largeur; j++) {
-                table[(i*8)+j]=new Carreau(i,j);
+        for(int row = 0; row < longuer ; row++){
+            for(int col = 0; col < largeur; col++){
+                Carreau c = new Carreau(col,7-row);
+                this.addTile(c);
+                table[(row*8)+col]=c;
             }
         }
+        this.setOrientation(Orientation.HORIZONTAL);
+        this.setPrefColumns(this.largeur);
+        this.setTileAlignment(Pos.CENTER);
     }
 
     public void renderEchequier(){
-        for (Carreau c:table) {
+        /*for (Carreau c:table) {
             this.getChildren().add(new PaneCarreau(c));
-        }
-    }
-    public void remplire() throws IOException {
+        }*/
 
+    }
+    void addTile(Node node){
+        this.getChildren().add(node);
+    }
+
+    public void remplire() throws IOException {
         for (Carreau c:table) {
             if (c.getPosition().getValue()<2 ){
                 Couleur side  = Couleur.Blanc;
@@ -111,21 +126,18 @@ public class Echequier extends Group{
 
         }
     }
-    public void addToMid(Piece P){
-        table[27].ajouterPiece(P);
-        table[27].color(Color.RED);
-    }
+
 
     public void deplacerPiece(Carreau carreau) {
         if (pieceSelectionne.deplacementsPossbiles(this.table).contains(carreau.getPosition())){
             for (Carreau c:table) {
                 if (c.getPosition()==pieceSelectionne.getPosition()){
-                    c.setPiece(null);
+                    c.ajouterPiece(null);
                     break;
                 }
             }
             pieceSelectionne.deplacer(carreau.getPosition());
-            carreau.setPiece(pieceSelectionne);
+            carreau.ajouterPiece(pieceSelectionne);
         }
         else {
             pieceSelectionne=null;

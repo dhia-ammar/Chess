@@ -16,7 +16,12 @@ public class Pion extends Piece{
     public Pion(Pair<Integer, Integer> position, Couleur couleur) throws IOException {
         super(position, couleur);
         this.jamaisDeplace = true;
-        this.image=new Image(getClass().getResource("/Assets/Black/pion-03.png").toExternalForm());
+        if (couleur==Couleur.Noir){
+            this.image=new Image(getClass().getResource("/Assets/Black/pion-03.png").toExternalForm());
+        }
+        else{
+            this.image=new Image(getClass().getResource("/Assets/White/pion-03.png").toExternalForm());
+        }
     }
 
     @Override
@@ -42,7 +47,6 @@ public class Pion extends Piece{
             deplacement=new Pair<>(currX,y);
             deplacements.add(deplacement);
             if (jamaisDeplace){
-
                 y=currY+2;
                 deplacement=new Pair<>(currX,y);
                 deplacements.add(deplacement);

@@ -11,7 +11,7 @@ public class PaneCarreau extends Pane {
     Carreau carreau;
     ImageView piece=new ImageView();
 
-    public PaneCarreau(Carreau carreau){
+    /*public PaneCarreau(Carreau carreau){
         this.setPrefSize(100,100);
         this.setTranslateX(carreau.getPosition().getKey()*10);
         this.setTranslateY(carreau.getPosition().getValue()*10);
@@ -24,5 +24,5 @@ public class PaneCarreau extends Pane {
             this.piece.setFitHeight(100);
             this.piece.setFitWidth(100);
         }
-    }
+    }*/
 }
