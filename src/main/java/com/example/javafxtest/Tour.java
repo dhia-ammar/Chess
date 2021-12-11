@@ -13,7 +13,7 @@ public class Tour extends Piece{
         this.jamaisDeplace=true;
     }
     @Override
-    public HashSet<Pair<Integer, Integer>> deplacementsPossbiles() {
+    public HashSet<Pair<Integer, Integer>> deplacementsPossbiles(Carreau[] table) {
         HashSet<Pair<Integer, Integer>> deplacements=new HashSet<Pair<Integer,Integer>>();
         Pair<Integer, Integer> deplacement=null;
         int currX = position.getKey();
@@ -32,6 +32,13 @@ public class Tour extends Piece{
         }
         return deplacements;
     }
+
+    @Override
+    public void deplacer(Pair<Integer, Integer> position) {
+        super.deplacer(position);
+        this.jamaisDeplace=false;
+    }
+
     @Override
     public void detruire() {
 

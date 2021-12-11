@@ -26,9 +26,8 @@ public class Echequier extends Group{
     }
 
     public void renderEchequier(){
-
         for (Carreau c:table) {
-            this.getChildren().add(c);
+            this.getChildren().add(new PaneCarreau(c));
         }
     }
     public void remplire() throws IOException {
@@ -118,7 +117,7 @@ public class Echequier extends Group{
     }
 
     public void deplacerPiece(Carreau carreau) {
-        if (pieceSelectionne.deplacementsPossbiles().contains(carreau.getPosition())){
+        if (pieceSelectionne.deplacementsPossbiles(this.table).contains(carreau.getPosition())){
             for (Carreau c:table) {
                 if (c.getPosition()==pieceSelectionne.getPosition()){
                     c.setPiece(null);

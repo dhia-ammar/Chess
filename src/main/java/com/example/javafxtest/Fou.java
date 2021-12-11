@@ -12,7 +12,7 @@ public class Fou extends Piece{
     }
 
     @Override
-    public HashSet<Pair<Integer, Integer>> deplacementsPossbiles() {
+    public HashSet<Pair<Integer, Integer>> deplacementsPossbiles(Carreau[] table) {
         HashSet<Pair<Integer, Integer>> deplacements=new HashSet<Pair<Integer,Integer>>();
         Pair<Integer, Integer> deplacement=null;
         int currX = position.getKey();

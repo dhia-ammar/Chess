@@ -14,7 +14,7 @@ public class Roi extends Piece{
     }
 
     @Override
-    public HashSet<Pair<Integer, Integer>> deplacementsPossbiles() {
+    public HashSet<Pair<Integer, Integer>> deplacementsPossbiles(Carreau[] table) {
         HashSet<Pair<Integer, Integer>> deplacements= new HashSet<Pair<Integer, Integer>>();
         Pair<Integer, Integer> deplacement=null;
         int currX = position.getKey();
@@ -40,6 +40,13 @@ public class Roi extends Piece{
     public void detruire() {
 
     }
+
+    @Override
+    public void deplacer(Pair<Integer, Integer> position) {
+        super.deplacer(position);
+        this.jamaisDeplace=false;
+    }
+
     @Override
     public String toString() {
         String ch = "R "+couleur.name();

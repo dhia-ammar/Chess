@@ -10,7 +10,7 @@ public class Chavalier extends Piece{
         super(position, couleur);
     }
     @Override
-    public HashSet<Pair<Integer, Integer>> deplacementsPossbiles() {
+    public HashSet<Pair<Integer, Integer>> deplacementsPossbiles(Carreau[] table) {
         HashSet<Pair<Integer, Integer>> deplacements=new HashSet<>();
         Pair<Integer, Integer> deplacement=null;
         int currX = position.getKey();
@@ -65,7 +65,11 @@ public class Chavalier extends Piece{
             deplacement =new Pair<>(x,y);
             deplacements.add(deplacement);
         }
-
+        for ( Pair<Integer, Integer> d:deplacements) {
+            if (table[d.getKey()*8+d.getValue()].getPiece()!=null){
+                deplacements.remove(d);
+            }
+        }
         return deplacements;
     }
     @Override

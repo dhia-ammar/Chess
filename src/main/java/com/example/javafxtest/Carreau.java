@@ -35,7 +35,7 @@ public class Carreau extends Rectangle {
             Echequier e = (Echequier) this.getParent();
             if(this.getPiece()!=null){
                 System.out.println(getPiece().toString());
-                e.colorBoxes(this.getPiece().deplacementsPossbiles());
+                e.colorBoxes(this.getPiece().deplacementsPossbiles(((Echequier) this.getParent()).table));
                 e.setPieceSelectionne(this.getPiece());
             }
             else{
@@ -49,13 +49,6 @@ public class Carreau extends Rectangle {
     }
     public void ajouterPiece(Piece p){
         this.piece=p;
-        imageView=new ImageView();
-
-        Rectangle rect=new Rectangle(100*this.position.getKey(),700-100*this.getPosition().getValue(),LONGUER,LARGEUR);
-        if (p instanceof Pion){
-            this.setFill(new ImagePattern(p.getImage()));
-        }
-
     }
     public void enleverPiece(){
         this.piece=null;
