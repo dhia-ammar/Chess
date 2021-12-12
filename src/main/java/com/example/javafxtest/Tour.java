@@ -65,10 +65,13 @@ public class Tour extends Piece{
             y=currY+i;
             if (y>=0 && y<8){
                 deplacement=new Pair<>(x,y);
-                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null && table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece().getCouleur()==this.getCouleur()){
                     break;
                 }
                 deplacements.add(deplacement);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
             }
         }
         return deplacements;

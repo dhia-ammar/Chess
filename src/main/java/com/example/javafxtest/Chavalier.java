@@ -74,7 +74,7 @@ public class Chavalier extends Piece{
         }
         ArrayList<Pair<Integer, Integer>> aSupprimer=new ArrayList<Pair<Integer, Integer>>();
         for ( Pair<Integer, Integer> d:deplacements) {
-            if (table[d.getKey()*8+7-d.getValue()].getPiece()!=null){
+            if (table[d.getKey()*8+7-d.getValue()].getPiece()!=null && table[d.getKey()*8+7-d.getValue()].getPiece().getCouleur()==this.getCouleur()){
                 aSupprimer.add(d);
             }
         }

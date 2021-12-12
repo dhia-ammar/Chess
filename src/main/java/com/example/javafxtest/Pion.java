@@ -40,31 +40,65 @@ public class Pion extends Piece{
         Pair<Integer, Integer> deplacement=null;
         int currX = position.getKey();
         int currY = position.getValue();
+        int x;
         int y;
         if (this.couleur == Couleur.Blanc){
             for (int i=1;i<3;i++){
                 y=currY+i;
-                deplacement=new Pair<>(currX,y);
-                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
-                    break;
-                }
-                deplacements.add(deplacement);
-                if (!jamaisDeplace){
-                    break;
+                if (y>=0 && y<8){
+                    deplacement=new Pair<>(currX,y);
+                    if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                        break;
+                    }
+                    deplacements.add(deplacement);
+                    if (!jamaisDeplace){
+                        break;
+                    }
                 }
             }
-
+            y=currY+1;
+            x=currX+1;
+            if (y>=0 && y<8 && x>=0 && x<8){
+            deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null && table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece().getCouleur()!=this.getCouleur()){
+                    deplacements.add(deplacement);
+                }
+            }
+            x=currX-1;
+            if (y>=0 && y<8 && x>=0 && x<8){
+            deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null && table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece().getCouleur()!=this.getCouleur()){
+                    deplacements.add(deplacement);
+                }
+            }
         }
         else{
             for (int i=1;i<3;i++){
                 y=currY-i;
-                deplacement=new Pair<>(currX,y);
-                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
-                    break;
+                if (y>=0 && y<8){
+                    deplacement=new Pair<>(currX,y);
+                    if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                        break;
+                    }
+                    deplacements.add(deplacement);
+                    if (!jamaisDeplace){
+                        break;
+                    }
                 }
-                deplacements.add(deplacement);
-                if (!jamaisDeplace){
-                    break;
+            }
+            y=currY-1;
+            x=currX+1;
+            if (y>=0 && y<8 && x>=0 && x<8){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null && table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece().getCouleur()!=this.getCouleur()){
+                    deplacements.add(deplacement);
+                }
+            }
+            x=currX-1;
+            if (y>=0 && y<8 && x>=0 && x<8){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null && table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece().getCouleur()!=this.getCouleur()){
+                    deplacements.add(deplacement);
                 }
             }
         }
