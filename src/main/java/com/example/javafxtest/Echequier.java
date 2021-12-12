@@ -68,10 +68,10 @@ public class Echequier extends TilePane{
                     if(c.getPosition().getKey()==2 || c.getPosition().getKey()==5){
                         c.ajouterPiece(new Fou(c.getPosition(),side));
                     }
-                    if(c.getPosition().getKey()==3){
+                    if(c.getPosition().getKey()==4){
                         c.ajouterPiece(new Roi(c.getPosition(),side));
                     }
-                    if(c.getPosition().getKey()==4){
+                    if(c.getPosition().getKey()==3){
                         c.ajouterPiece(new Dame(c.getPosition(),side));
                     }
                 }
@@ -91,10 +91,10 @@ public class Echequier extends TilePane{
                     if(c.getPosition().getKey()==2 || c.getPosition().getKey()==5){
                         c.ajouterPiece(new Fou(c.getPosition(),side));
                     }
-                    if(c.getPosition().getKey()==3){
+                    if(c.getPosition().getKey()==4){
                         c.ajouterPiece(new Roi(c.getPosition(),side));
                     }
-                    if(c.getPosition().getKey()==4){
+                    if(c.getPosition().getKey()==3){
                         c.ajouterPiece(new Dame(c.getPosition(),side));
                     }
                 }
@@ -193,6 +193,20 @@ public class Echequier extends TilePane{
         carreauSelectionne=null;
         for (Carreau car:table) {
             car.color();
+        }
+    }
+    public void noirCheck(){
+        HashSet<Pair<Integer, Integer>> mouvements = new HashSet<>();
+        Pair<Integer, Integer> roiPosition;
+        for (Carreau c:table) {
+            if (c.getPiece()!=null){
+                if (c.getPiece() instanceof Roi && c.getPiece().getCouleur()==Couleur.Noir){
+                    roiPosition = c.getPosition();
+                }
+                else if(c.getPiece().getCouleur()==Couleur.Blanc){
+                    mouvements.addAll(c.getPiece().deplacementsPossbiles(table));
+                }
+            }
         }
     }
 }

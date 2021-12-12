@@ -30,34 +30,52 @@ public class Tour extends Piece{
         for (int i=1;i<8;i++){
             x=currX+i;
             y=currY;
-            if (x>=0 && x<8 ){
+            if (x>=0 && x<8){
                 deplacement=new Pair<>(x,y);
-                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null && table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece().getCouleur()==this.getCouleur()){
                     break;
                 }
                 deplacements.add(deplacement);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
+            }
+            else{
+                break;
             }
         }
         for (int i=1;i<8;i++){
             x=currX-i;
             y=currY;
-            if (x>=0 && x<8 ){
+            if (x>=0 && x<8){
                 deplacement=new Pair<>(x,y);
-                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null && table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece().getCouleur()==this.getCouleur()){
                     break;
                 }
                 deplacements.add(deplacement);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
+            }
+            else{
+                break;
             }
         }
         for (int i=1;i<8;i++){
             x=currX;
             y=currY-i;
-            if (x>=0 && y>=0 && y<8 && x<8 ){
+            if (y>=0 && y<8){
                 deplacement=new Pair<>(x,y);
-                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null && table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece().getCouleur()==this.getCouleur()){
                     break;
                 }
                 deplacements.add(deplacement);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
+            }
+            else{
+                break;
             }
         }
         for (int i=1;i<8;i++){
