@@ -5,7 +5,8 @@ public class Joueur {
     private String prenom;
     private int nbre_matches_gagnes;
     private Couleur couleur;
-
+    private  boolean check;
+    private boolean checkmate;
     public Joueur(String nom, String prenom) {
         this.nom = nom;
         this.prenom = prenom;
@@ -41,5 +42,21 @@ public class Joueur {
 
     public void setCouleur(Couleur couleur) {
         this.couleur = couleur;
+    }
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    public void setCheck(boolean check) {
+        this.check = check;
+    }
+
+    public boolean isCheckmate() {
+        return checkmate;
+    }
+
+    public void setCheckmate(boolean checkmate) {
+        this.checkmate = checkmate;
     }
 }

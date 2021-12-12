@@ -19,7 +19,7 @@ public class HelloApplication extends Application {
         Echequier ech = new Echequier(dhia,iss);
         ech.remplire();
         Parent root = new Group(ech);
-        Scene scene = new Scene(root,800,800);
+        Scene scene = new Scene(root);
         stage.setTitle("Chess");
         stage.setScene(scene);
         stage.show();

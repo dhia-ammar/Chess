@@ -28,10 +28,16 @@ public class Pion extends Piece{
     public void deplacer(Pair<Integer, Integer> position) {
         super.deplacer(position);
         jamaisDeplace=false;
+
+
     }
 
-    public void promouvoir(){
-
+    public Piece promouvoir(){
+        if ((position.getValue()==7 && couleur==Couleur.Blanc) || (position.getValue()==0 && couleur==Couleur.Noir)){
+            Piece promoted = new Dame(this.position,this.couleur);
+            return promoted;
+        }
+        return null;
     }
 
     @Override

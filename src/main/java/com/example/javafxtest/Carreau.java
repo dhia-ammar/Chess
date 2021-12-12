@@ -38,7 +38,7 @@ public class Carreau  extends StackPane{
         position=new Pair<>(x,y);
         piece= null;
         this.setStyle("-fx-background-color:white;");
-        this.setStyle("-fx-border-color:green; ");
+        this.setStyle("-fx-border-color:black; ");
         this.setOnMouseClicked(t -> {
             Echequier e = (Echequier) this.getParent();
             if (this.getPiece()!=null){

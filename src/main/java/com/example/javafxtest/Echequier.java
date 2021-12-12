@@ -152,6 +152,12 @@ public class Echequier extends TilePane{
         for (Carreau c:table) {
             c.color();
         }
+        if (piece instanceof Pion){
+            if (((Pion) piece).promouvoir()!=null){
+                carreauArrive.enleverPiece();
+                carreauArrive.ajouterPiece(((Pion) piece).promouvoir());
+            }
+        }
     }
 
     public Joueur getJoueur_noir() {
