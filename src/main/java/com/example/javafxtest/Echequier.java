@@ -17,11 +17,14 @@ import java.util.TreeSet;
 
 public class Echequier extends TilePane{
     Carreau[] table;
-    int longuer=8;
-    int largeur=8;
-    Carreau carreauSelectionne=null;
+    private int longuer=8;
+    private int largeur=8;
+    private Carreau carreauSelectionne=null;
+    private Joueur joueur_noir;
+    private Joueur joueur_blanc;
+    Joueur tour;
 
-    public Echequier(){
+    public Echequier(Joueur j1,Joueur j2){
         table=new Carreau[longuer*largeur];
         for(int row = 0; row < longuer ; row++){
             for(int col = 0; col < largeur; col++){
@@ -33,18 +36,24 @@ public class Echequier extends TilePane{
         this.setOrientation(Orientation.HORIZONTAL);
         this.setPrefColumns(this.largeur);
         this.setTileAlignment(Pos.CENTER);
+        this.joueur_blanc=j1;
+        j1.setCouleur(Couleur.Blanc);
+        this.joueur_noir=j2;
+        j2.setCouleur(Couleur.Noir);
+        tour =joueur_blanc;
     }
 
-    public void renderEchequier(){
-        /*for (Carreau c:table) {
-            this.getChildren().add(new PaneCarreau(c));
-        }*/
-
-    }
     void addTile(Node node){
         this.getChildren().add(node);
     }
-
+    void changerTour(){
+        if(tour == joueur_blanc){
+            tour = joueur_noir;
+        }
+        else{
+            tour = joueur_blanc;
+        }
+    }
     public void remplire() throws IOException {
         for (Carreau c:table) {
             if (c.getPosition().getValue()<2 ){
@@ -128,11 +137,13 @@ public class Echequier extends TilePane{
     public void effectuerCoup(Carreau c){
         if (carreauSelectionne.getPiece().deplacementsPossbiles(this.table).contains(c.getPosition())){
             deplacerPiece(carreauSelectionne,c,carreauSelectionne.getPiece());
+            this.changerTour();
         }
         carreauSelectionne=null;
         for (Carreau car:table) {
             car.color();
         }
+
     }
     public void deplacerPiece(Carreau carreauDepart,Carreau carreauArrive,Piece piece) {
         carreauDepart.enleverPiece();
@@ -140,6 +151,42 @@ public class Echequier extends TilePane{
         piece.deplacer(carreauArrive.getPosition());
         for (Carreau c:table) {
             c.color();
+        }
+    }
+
+    public Joueur getJoueur_noir() {
+        return joueur_noir;
+    }
+
+    public void setJoueur_noir(Joueur joueur_noir) {
+        this.joueur_noir = joueur_noir;
+    }
+
+    public Joueur getJoueur_blanc() {
+        return joueur_blanc;
+    }
+
+    public void setJoueur_blanc(Joueur joueur_blanc) {
+        this.joueur_blanc = joueur_blanc;
+    }
+
+    public Joueur getTour() {
+        return tour;
+    }
+
+    public void setTour(Joueur tour) {
+        this.tour = tour;
+    }
+
+    public void attaquer(Carreau carreauAttaque) {
+        if (carreauSelectionne.getPiece().deplacementsPossbiles(this.table).contains(carreauAttaque.getPosition())){
+            carreauAttaque.enleverPiece();
+            deplacerPiece(carreauSelectionne,carreauAttaque,carreauSelectionne.getPiece());
+            this.changerTour();
+        }
+        carreauSelectionne=null;
+        for (Carreau car:table) {
+            car.color();
         }
     }
 }

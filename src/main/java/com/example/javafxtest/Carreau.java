@@ -16,7 +16,7 @@ import javafx.util.Pair;
 public class Carreau  extends StackPane{
 
     Pair<Integer,Integer> position=null;
-    boolean contientPiece;
+
     Piece piece;
     Couleur couleur;
     private static final int LONGUER=100;
@@ -36,16 +36,22 @@ public class Carreau  extends StackPane{
         this.color();
         this.setAlignment(Pos.CENTER);
         position=new Pair<>(x,y);
-        contientPiece=false;
         piece= null;
         this.setStyle("-fx-background-color:white;");
         this.setStyle("-fx-border-color:green; ");
         this.setOnMouseClicked(t -> {
             Echequier e = (Echequier) this.getParent();
-            if(this.getPiece()!=null){
-                System.out.println(getPiece().toString());
-                e.colorBoxes(this.getPiece().deplacementsPossbiles(((Echequier) this.getParent()).table));
-                e.setCarreauSelectionne(this);
+            if (this.getPiece()!=null){
+                if(this.getPiece().getCouleur()==e.getTour().getCouleur()){
+                    System.out.println(getPiece().toString());
+                    e.colorBoxes(this.getPiece().deplacementsPossbiles(e.table));
+                    e.setCarreauSelectionne(this);
+                }
+                else if (e.getCarreauSelectionne()!=null){
+                    if(this.getPiece().getCouleur()!= e.getCarreauSelectionne().getPiece().getCouleur()){
+                        e.attaquer(this);
+                    }
+                }
             }
             else{
                 if (e.getCarreauSelectionne()!=null){
@@ -63,23 +69,12 @@ public class Carreau  extends StackPane{
         this.piece=null;
         this.getChildren().remove(1);
     }
-
     public Pair<Integer, Integer> getPosition() {
         return position;
     }
-
     public void setPosition(Pair<Integer, Integer> position) {
         this.position = position;
     }
-
-    public boolean isContientPiece() {
-        return contientPiece;
-    }
-
-    public void setContientPiece(boolean contientPiece) {
-        this.contientPiece = contientPiece;
-    }
-
     public Piece getPiece() {
         return piece;
     }

@@ -14,9 +14,10 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Echequier ech = new Echequier();
+        Joueur dhia=new Joueur("Dhia","Ammar");
+        Joueur iss= new Joueur("Isslem","Hidoussi");
+        Echequier ech = new Echequier(dhia,iss);
         ech.remplire();
-        ech.renderEchequier();
         Parent root = new Group(ech);
         Scene scene = new Scene(root,800,800);
         stage.setTitle("Chess");
@@ -25,10 +26,6 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) throws  IOException{
-        Echequier ech = new Echequier();
-        System.out.print(ech);
-        ech.remplire();
-        System.out.print(ech);
         launch();
     }
 }
