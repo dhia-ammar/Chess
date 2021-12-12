@@ -3,6 +3,7 @@ package com.example.javafxtest;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.TreeSet;
 
@@ -41,6 +42,13 @@ public class Roi extends Piece{
                 }
             }
         }
+        ArrayList<Pair<Integer, Integer>> aSupprimer=new ArrayList<Pair<Integer, Integer>>();
+        for ( Pair<Integer, Integer> d:deplacements) {
+            if (table[d.getKey()*8+7-d.getValue()].getPiece()!=null){
+                aSupprimer.add(d);
+            }
+        }
+        deplacements.removeAll(aSupprimer);
         return deplacements;
     }
     @Override

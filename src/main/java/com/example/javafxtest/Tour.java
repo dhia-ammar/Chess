@@ -25,15 +25,49 @@ public class Tour extends Piece{
         Pair<Integer, Integer> deplacement=null;
         int currX = position.getKey();
         int currY = position.getValue();
-        for (int i = 0; i < 8; i++) {
-            if (i!=currX){
-                deplacement=new Pair<>(i,currY);
+        int x;
+        int y;
+        for (int i=1;i<8;i++){
+            x=currX+i;
+            y=currY;
+            if (x>=0 && x<8 ){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
                 deplacements.add(deplacement);
             }
         }
-        for (int j = 0; j < 8; j++) {
-            if (j!=currY){
-                deplacement=new Pair<>(currX,j);
+        for (int i=1;i<8;i++){
+            x=currX-i;
+            y=currY;
+            if (x>=0 && x<8 ){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
+                deplacements.add(deplacement);
+            }
+        }
+        for (int i=1;i<8;i++){
+            x=currX;
+            y=currY-i;
+            if (x>=0 && y>=0 && y<8 && x<8 ){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
+                deplacements.add(deplacement);
+            }
+        }
+        for (int i=1;i<8;i++){
+            x=currX;
+            y=currY+i;
+            if (y>=0 && y<8){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
                 deplacements.add(deplacement);
             }
         }

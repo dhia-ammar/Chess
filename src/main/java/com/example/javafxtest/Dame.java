@@ -27,7 +27,95 @@ public class Dame extends Piece{
         int currY = position.getValue();
         int x;
         int y;
-        for (int i = -7; i < 8; i++) {
+        for (int i=1;i<8;i++){
+            x=currX+i;
+            y=currY+i;
+            if (x>=0 && y>=0 && y<8 && x<8 ){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
+                deplacements.add(deplacement);
+            }
+        }
+        for (int i=1;i<8;i++){
+            x=currX+i;
+            y=currY-i;
+            if (x>=0 && y>=0 && y<8 && x<8 ){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
+                deplacements.add(deplacement);
+            }
+        }
+        for (int i=1;i<8;i++){
+            x=currX-i;
+            y=currY-i;
+            if (x>=0 && y>=0 && y<8 && x<8 ){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
+                deplacements.add(deplacement);
+            }
+        }
+        for (int i=1;i<8;i++){
+            x=currX-i;
+            y=currY+i;
+            if (x>=0 && y>=0 && y<8 && x<8 ){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
+                deplacements.add(deplacement);
+            }
+        }
+        for (int i=1;i<8;i++){
+            x=currX+i;
+            y=currY;
+            if (x>=0 && x<8 ){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
+                deplacements.add(deplacement);
+            }
+        }
+        for (int i=1;i<8;i++){
+            x=currX-i;
+            y=currY;
+            if (x>=0 && x<8 ){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
+                deplacements.add(deplacement);
+            }
+        }
+        for (int i=1;i<8;i++){
+            x=currX;
+            y=currY-i;
+            if (x>=0 && y>=0 && y<8 && x<8 ){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
+                deplacements.add(deplacement);
+            }
+        }
+        for (int i=1;i<8;i++){
+            x=currX;
+            y=currY+i;
+            if (y>=0 && y<8){
+                deplacement=new Pair<>(x,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
+                deplacements.add(deplacement);
+            }
+        }
+        /*for (int i = -7; i < 8; i++) {
             if (i!=0){
                 x=currX+i;
                 y=currY+i;
@@ -54,7 +142,7 @@ public class Dame extends Piece{
                 deplacement=new Pair<>(currX,j);
                 deplacements.add(deplacement);
             }
-        }
+        }*/
         return deplacements;
     }
     @Override

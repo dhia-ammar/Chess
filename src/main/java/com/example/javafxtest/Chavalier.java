@@ -3,7 +3,7 @@ package com.example.javafxtest;
 import javafx.scene.image.Image;
 import javafx.util.Pair;
 
-import java.util.HashSet;
+import java.util.*;
 
 public class Chavalier extends Piece{
 
@@ -72,11 +72,13 @@ public class Chavalier extends Piece{
             deplacement =new Pair<>(x,y);
             deplacements.add(deplacement);
         }
+        ArrayList<Pair<Integer, Integer>> aSupprimer=new ArrayList<Pair<Integer, Integer>>();
         for ( Pair<Integer, Integer> d:deplacements) {
-            if (table[d.getKey()*8+d.getValue()].getPiece()!=null){
-                deplacements.remove(d);
+            if (table[d.getKey()*8+7-d.getValue()].getPiece()!=null){
+                aSupprimer.add(d);
             }
         }
+        deplacements.removeAll(aSupprimer);
         return deplacements;
     }
     @Override

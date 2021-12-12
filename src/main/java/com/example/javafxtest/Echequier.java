@@ -27,7 +27,7 @@ public class Echequier extends TilePane{
             for(int col = 0; col < largeur; col++){
                 Carreau c = new Carreau(col,7-row);
                 this.addTile(c);
-                table[(row*8)+col]=c;
+                table[(col*8)+row]=c;
             }
         }
         this.setOrientation(Orientation.HORIZONTAL);

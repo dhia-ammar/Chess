@@ -42,24 +42,30 @@ public class Pion extends Piece{
         int currY = position.getValue();
         int y;
         if (this.couleur == Couleur.Blanc){
-            y=currY+1;
-            deplacement=new Pair<>(currX,y);
-            deplacements.add(deplacement);
-            if (jamaisDeplace){
-                y=currY+2;
+            for (int i=1;i<3;i++){
+                y=currY+i;
                 deplacement=new Pair<>(currX,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
                 deplacements.add(deplacement);
+                if (!jamaisDeplace){
+                    break;
+                }
             }
+
         }
         else{
-            y=currY-1;
-            deplacement=new Pair<>(currX,y);
-            deplacements.add(deplacement);
-            if (jamaisDeplace){
-
-                y=currY-2;
+            for (int i=1;i<3;i++){
+                y=currY-i;
                 deplacement=new Pair<>(currX,y);
+                if (table[deplacement.getKey()*8+7-deplacement.getValue()].getPiece()!=null){
+                    break;
+                }
                 deplacements.add(deplacement);
+                if (!jamaisDeplace){
+                    break;
+                }
             }
         }
         return deplacements;
