@@ -143,7 +143,6 @@ public class Echequier extends TilePane{
         for (Carreau car:table) {
             car.color();
         }
-
     }
     public void deplacerPiece(Carreau carreauDepart,Carreau carreauArrive,Piece piece) {
         carreauDepart.enleverPiece();
@@ -158,6 +157,8 @@ public class Echequier extends TilePane{
                 carreauArrive.ajouterPiece(((Pion) piece).promouvoir());
             }
         }
+        noirCheck();
+        blancCheck();
     }
 
     public Joueur getJoueur_noir() {
@@ -195,9 +196,9 @@ public class Echequier extends TilePane{
             car.color();
         }
     }
-    public void noirCheck(){
+    public boolean noirCheck(){
         HashSet<Pair<Integer, Integer>> mouvements = new HashSet<>();
-        Pair<Integer, Integer> roiPosition;
+        Pair<Integer, Integer> roiPosition = null;
         for (Carreau c:table) {
             if (c.getPiece()!=null){
                 if (c.getPiece() instanceof Roi && c.getPiece().getCouleur()==Couleur.Noir){
@@ -208,5 +209,23 @@ public class Echequier extends TilePane{
                 }
             }
         }
+        System.out.println("Noir : "+mouvements.contains(roiPosition));
+        return mouvements.contains(roiPosition);
+    }
+    public boolean blancCheck(){
+        HashSet<Pair<Integer, Integer>> mouvements = new HashSet<>();
+        Pair<Integer, Integer> roiPosition = null;
+        for (Carreau c:table) {
+            if (c.getPiece()!=null){
+                if (c.getPiece() instanceof Roi && c.getPiece().getCouleur()==Couleur.Blanc){
+                    roiPosition = c.getPosition();
+                }
+                else if(c.getPiece().getCouleur()==Couleur.Noir){
+                    mouvements.addAll(c.getPiece().deplacementsPossbiles(table));
+                }
+            }
+        }
+        System.out.println("Blanc : "+mouvements.contains(roiPosition));
+        return mouvements.contains(roiPosition);
     }
 }
