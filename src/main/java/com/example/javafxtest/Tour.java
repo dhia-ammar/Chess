@@ -6,7 +6,7 @@ import javafx.util.Pair;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-public class Tour extends Piece{
+public final class Tour extends Piece{
     private boolean jamaisDeplace;
 
     public Tour(Pair<Integer, Integer> position, Couleur couleur) {

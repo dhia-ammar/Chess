@@ -6,7 +6,7 @@ import javafx.util.Pair;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-public class Dame extends Piece{
+public final class Dame extends Piece{
 
 
     public Dame(Pair<Integer, Integer> position, Couleur couleur) {

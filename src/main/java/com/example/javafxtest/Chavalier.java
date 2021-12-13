@@ -5,7 +5,7 @@ import javafx.util.Pair;
 
 import java.util.*;
 
-public class Chavalier extends Piece{
+public final class Chavalier extends Piece{
 
     public Chavalier(Pair<Integer, Integer> position, Couleur couleur) {
         super(position, couleur);

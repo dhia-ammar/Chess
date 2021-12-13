@@ -1,27 +1,21 @@
 package com.example.javafxtest;
 
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
 
 public class Carreau  extends StackPane{
 
-    Pair<Integer,Integer> position=null;
+    Pair<Integer,Integer> position;
 
     Piece piece;
     Couleur couleur;
     private static final int LONGUER=100;
     public static final int LARGEUR=100;
-    //private final StackPane tile;
     ImageView imageView;
 
     public Carreau(int x,int y){
@@ -71,9 +65,6 @@ public class Carreau  extends StackPane{
     }
     public Pair<Integer, Integer> getPosition() {
         return position;
-    }
-    public void setPosition(Pair<Integer, Integer> position) {
-        this.position = position;
     }
     public Piece getPiece() {
         return piece;

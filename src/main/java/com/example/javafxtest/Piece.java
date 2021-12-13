@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.Pair;
 
-public abstract class Piece implements InterfacePiece{
+public abstract sealed class Piece implements InterfacePiece permits Chavalier,Dame,Fou,Pion,Roi,Tour{
     Couleur couleur=null;
     Pair<Integer,Integer> position=null;
     Image image;

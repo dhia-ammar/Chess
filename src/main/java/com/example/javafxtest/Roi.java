@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.TreeSet;
 
-public class Roi extends Piece{
+public final class Roi extends Piece{
     private boolean jamaisDeplace;
 
     public Roi(Pair<Integer, Integer> position, Couleur couleur) {

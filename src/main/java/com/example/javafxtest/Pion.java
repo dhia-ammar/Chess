@@ -10,7 +10,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Pion extends Piece{
+public final class Pion extends Piece{
     private boolean jamaisDeplace;
 
     public Pion(Pair<Integer, Integer> position, Couleur couleur) throws IOException {
