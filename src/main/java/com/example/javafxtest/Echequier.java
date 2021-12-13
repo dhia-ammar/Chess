@@ -3,12 +3,16 @@ package com.example.javafxtest;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.util.Pair;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -19,8 +23,9 @@ public class Echequier extends TilePane{
     private Carreau carreauSelectionne=null;
     private Joueur joueur_noir;
     private Joueur joueur_blanc;
+    private Joueur winner;
     Joueur tour;
-
+    private boolean termine =false;
     public Echequier(Joueur j1,Joueur j2)throws CloneNotSupportedException{
         table=new Carreau[longuer*largeur];
         for(int row = 0; row < longuer ; row++){
@@ -51,7 +56,7 @@ public class Echequier extends TilePane{
             tour = joueur_blanc;
         }
     }
-    public void remplire() throws IOException {
+    public void remplire(){
         for (Carreau c:table) {
             if (c.getPosition().getValue()<2 ){
                 Couleur side  = Couleur.Blanc;
@@ -113,8 +118,6 @@ public class Echequier extends TilePane{
         }
         return ch;
     }
-
-
     public void colorBoxes(HashSet<Pair<Integer, Integer>> deplacementsPossbiles) {
         for (Carreau c:table) {
             c.color();
@@ -172,11 +175,55 @@ public class Echequier extends TilePane{
             case Blanc -> checkmate(Couleur.Noir);
         };
         if(winner){
+            if (piece.getCouleur()==Couleur.Noir){
+                this.winner = joueur_noir;
+            }
+            else{
+                this.winner = joueur_blanc;
+            }
+            termine=true;
             System.out.println("Checkmate!"+piece.getCouleur()+" is The winner");
+            Stage winnerWindow = new Stage();
+            winnerWindow.setTitle("Checkmate!");
+            Label checkmate = new Label("CheckMate!");
+            checkmate.setFont(Font.font("Cambria", 48));
+            checkmate.setAlignment(Pos.CENTER);
+            Joueur gagnant=this.getWinner();
+            Label gagnantLabel=new Label(gagnant.getPrenom()+" "+gagnant.getNom()+" a gagne le jeu!");
+            gagnantLabel.setFont(Font.font("Cambria", 32));
+            gagnantLabel.setAlignment(Pos.CENTER);
+            /*Button button = new Button("Rejouer !");
+            button.setAlignment(Pos.CENTER);
+            button.setOnAction(event -> {
+                reinitialiser();
+            });*/
+            VBox container = new VBox(checkmate,gagnantLabel);
+            winnerWindow.setScene(new Scene(container));
+            winnerWindow.show();
         }
-
     }
-    public boolean testerMouvement(Carreau carreauDepart,Carreau carreauArrive,Piece piece){
+
+    private void reinitialiser() {
+
+        for(int row = 0; row < longuer ; row++){
+            for(int col = 0; col < largeur; col++){
+                Carreau c = new Carreau(col,7-row);
+                this.addTile(c);
+                table[(col*8)+row]=c;
+            }
+        }
+        remplire();
+    }
+
+    public Joueur getWinner() {
+        return winner;
+    }
+
+    public boolean isTermine() {
+        return termine;
+    }
+
+    public boolean testerMouvement(Carreau carreauDepart, Carreau carreauArrive, Piece piece){
         Carreau[] tableTest = new Carreau[longuer*largeur];
         int i=0;
         for (Carreau c: table) {

@@ -9,7 +9,7 @@ import java.util.HashSet;
 public final class Pion extends Piece{
     private boolean jamaisDeplace;
 
-    public Pion(Pair<Integer, Integer> position, Couleur couleur) throws IOException {
+    public Pion(Pair<Integer, Integer> position, Couleur couleur){
         super(position, couleur);
         this.jamaisDeplace = true;
         if (couleur==Couleur.Noir){
