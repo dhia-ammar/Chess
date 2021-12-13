@@ -11,12 +11,10 @@ import javafx.util.Pair;
 public class Carreau  extends StackPane{
 
     Pair<Integer,Integer> position;
-
     Piece piece;
     Couleur couleur;
     private static final int LONGUER=100;
     public static final int LARGEUR=100;
-    ImageView imageView;
 
     public Carreau(int x,int y){
         Rectangle rect = new Rectangle(LONGUER,LARGEUR);
@@ -43,17 +41,25 @@ public class Carreau  extends StackPane{
                 }
                 else if (e.getCarreauSelectionne()!=null){
                     if(this.getPiece().getCouleur()!= e.getCarreauSelectionne().getPiece().getCouleur()){
-                        e.attaquer(this);
+                            e.attaquer(this);
                     }
                 }
             }
             else{
                 if (e.getCarreauSelectionne()!=null){
-                    e.effectuerCoup(this);
+                        e.effectuerCoup(this);
                 }
             }
 
         });
+    }
+    public Carreau(Carreau carreau){
+        position = carreau.position;
+        piece=carreau.piece;
+        couleur=carreau.couleur;
+    }
+    public void setPiece(Piece piece) {
+        this.piece = piece;
     }
     public void ajouterPiece(Piece p){
         this.piece=p;
@@ -93,6 +99,10 @@ public class Carreau  extends StackPane{
     public void changeColor() {
         Rectangle rect= (Rectangle) this.getChildren().get(0);
         rect.setFill(Color.GREEN);
+    }
+    public void makeRed() {
+        Rectangle rect= (Rectangle) this.getChildren().get(0);
+        rect.setFill(Color.RED);
     }
     public void color(){
         Rectangle rect= (Rectangle) this.getChildren().get(0);

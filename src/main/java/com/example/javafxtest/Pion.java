@@ -2,13 +2,9 @@ package com.example.javafxtest;
 
 import javafx.scene.image.Image;
 import javafx.util.Pair;
-
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+
 
 public final class Pion extends Piece{
     private boolean jamaisDeplace;

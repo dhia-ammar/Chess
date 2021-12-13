@@ -1,6 +1,5 @@
 package com.example.javafxtest;
 
-import java.util.ArrayList;
 
 public class Jeu {
     private Echequier echequier;

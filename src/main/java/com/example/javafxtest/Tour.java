@@ -2,9 +2,7 @@ package com.example.javafxtest;
 
 import javafx.scene.image.Image;
 import javafx.util.Pair;
-
 import java.util.HashSet;
-import java.util.TreeSet;
 
 public final class Tour extends Piece{
     private boolean jamaisDeplace;

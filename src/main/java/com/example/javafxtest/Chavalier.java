@@ -2,7 +2,6 @@ package com.example.javafxtest;
 
 import javafx.scene.image.Image;
 import javafx.util.Pair;
-
 import java.util.*;
 
 public final class Chavalier extends Piece{

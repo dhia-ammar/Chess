@@ -2,18 +2,11 @@ package com.example.javafxtest;
 
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.paint.Color;
 import javafx.util.Pair;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.TreeSet;
 
 public class Echequier extends TilePane{
     Carreau[] table;
@@ -24,7 +17,7 @@ public class Echequier extends TilePane{
     private Joueur joueur_blanc;
     Joueur tour;
 
-    public Echequier(Joueur j1,Joueur j2){
+    public Echequier(Joueur j1,Joueur j2)throws CloneNotSupportedException{
         table=new Carreau[longuer*largeur];
         for(int row = 0; row < longuer ; row++){
             for(int col = 0; col < largeur; col++){
@@ -117,13 +110,6 @@ public class Echequier extends TilePane{
         return ch;
     }
 
-    public Carreau getCarreauSelectionne() {
-        return carreauSelectionne;
-    }
-
-    public void setCarreauSelectionne(Carreau carreauSelectionne) {
-        this.carreauSelectionne = carreauSelectionne;
-    }
 
     public void colorBoxes(HashSet<Pair<Integer, Integer>> deplacementsPossbiles) {
         for (Carreau c:table) {
@@ -136,15 +122,29 @@ public class Echequier extends TilePane{
 
     public void effectuerCoup(Carreau c){
         if (carreauSelectionne.getPiece().deplacementsPossbiles(this.table).contains(c.getPosition())){
-            deplacerPiece(carreauSelectionne,c,carreauSelectionne.getPiece());
-            this.changerTour();
+            if (testerDeplacement(carreauSelectionne,c,carreauSelectionne.getPiece())==false){
+                deplacerPiece(carreauSelectionne,c,carreauSelectionne.getPiece());
+                for (Carreau car:table) {
+                    car.color();
+                }
+                this.changerTour();
+            }
+            else{
+                for (Carreau car:table){
+                    if (car.getPiece()!=null){
+                        if (car.getPiece() instanceof Roi && car.getPiece().getCouleur()==carreauSelectionne.getPiece().getCouleur()){
+                            car.makeRed();
+                        }
+                    }
+                    else{
+                        car.color();
+                    }
+                }
+            }
         }
         carreauSelectionne=null;
-        for (Carreau car:table) {
-            car.color();
-        }
     }
-    public void deplacerPiece(Carreau carreauDepart,Carreau carreauArrive,Piece piece) {
+    public void deplacerPiece(Carreau carreauDepart,Carreau carreauArrive,Piece piece){
         carreauDepart.enleverPiece();
         carreauArrive.ajouterPiece(piece);
         piece.deplacer(carreauArrive.getPosition());
@@ -157,8 +157,105 @@ public class Echequier extends TilePane{
                 carreauArrive.ajouterPiece(((Pion) piece).promouvoir());
             }
         }
-        noirCheck();
-        blancCheck();
+    }
+
+    public boolean testerDeplacement(Carreau carreauDepart,Carreau carreauArrive,Piece piece){
+        Carreau[] tableTest = new Carreau[longuer*largeur];
+        int i=0;
+        for (Carreau c: table) {
+            tableTest[i]=new Carreau(c);
+            i++;
+        }
+        for (Carreau c:tableTest) {
+
+            if (c.getPosition().getKey()==carreauDepart.getPosition().getKey() && c.getPosition().getValue()==carreauDepart.getPosition().getValue()){
+                c.setPiece(null);
+            }
+            else if (c.getPosition().getKey()==carreauArrive.getPosition().getKey() && c.getPosition().getValue()==carreauArrive.getPosition().getValue()){
+                c.setPiece(piece);
+            }
+        }
+        return switch(piece.getCouleur()){
+            case Blanc -> blancCheck(tableTest);
+            case Noir -> noirCheck(tableTest);
+        };
+    }
+    public boolean testerAttaque(Carreau carreauDepart,Carreau carreauArrive,Piece piece){
+        Carreau[] tableTest = new Carreau[longuer*largeur];
+        int i=0;
+        for (Carreau c: table) {
+            tableTest[i]=new Carreau(c);
+            i++;
+        }
+        for (Carreau c:tableTest) {
+            if (c.getPosition().getKey()==carreauDepart.getPosition().getKey() && c.getPosition().getValue()==carreauDepart.getPosition().getValue()){
+                c.setPiece(null);
+            }
+            else if (c.getPosition().getKey()==carreauArrive.getPosition().getKey() && c.getPosition().getValue()==carreauArrive.getPosition().getValue()){
+                c.setPiece(piece);
+            }
+        }
+        return switch(piece.getCouleur()){
+            case Blanc -> blancCheck(tableTest);
+            case Noir -> noirCheck(tableTest);
+        };
+    }
+    public void attaquer(Carreau carreauAttaque){
+        if (carreauSelectionne.getPiece().deplacementsPossbiles(this.table).contains(carreauAttaque.getPosition())){
+            if (testerAttaque(carreauSelectionne,carreauAttaque,carreauSelectionne.getPiece())==false){
+                carreauAttaque.enleverPiece();
+                deplacerPiece(carreauSelectionne,carreauAttaque,carreauSelectionne.getPiece());
+                for (Carreau car:table) {
+                    car.color();
+                }
+                this.changerTour();
+            }
+            else{
+                for (Carreau car:table){
+                    if (car.getPiece()!=null){
+                        if (car.getPiece() instanceof Roi && car.getPiece().getCouleur()==carreauSelectionne.getPiece().getCouleur()){
+                            car.makeRed();
+                        }
+                    }
+                    else{
+                        car.color();
+                    }
+                }
+            }
+        }
+        carreauSelectionne=null;
+    }
+    public boolean noirCheck(Carreau[] table){
+        HashSet<Pair<Integer, Integer>> mouvements = new HashSet<>();
+        Pair<Integer, Integer> roiPosition = null;
+        for (Carreau c:table) {
+            if (c.getPiece()!=null){
+                if (c.getPiece() instanceof Roi && c.getPiece().getCouleur()==Couleur.Noir){
+                    roiPosition = c.getPosition();
+                }
+                else if(c.getPiece().getCouleur()==Couleur.Blanc){
+                    mouvements.addAll(c.getPiece().deplacementsPossbiles(table));
+                }
+            }
+        }
+        System.out.println("Noir : "+mouvements.contains(roiPosition));
+        return mouvements.contains(roiPosition);
+    }
+    public boolean blancCheck(Carreau[] table){
+        HashSet<Pair<Integer, Integer>> mouvements = new HashSet<>();
+        Pair<Integer, Integer> roiPosition = null;
+        for (Carreau c:table) {
+            if (c.getPiece()!=null){
+                if (c.getPiece() instanceof Roi && c.getPiece().getCouleur()==Couleur.Blanc){
+                    roiPosition = c.getPosition();
+                }
+                else if(c.getPiece().getCouleur()==Couleur.Noir){
+                    mouvements.addAll(c.getPiece().deplacementsPossbiles(table));
+                }
+            }
+        }
+        System.out.println("Blanc : "+mouvements.contains(roiPosition));
+        return mouvements.contains(roiPosition);
     }
 
     public Joueur getJoueur_noir() {
@@ -185,47 +282,11 @@ public class Echequier extends TilePane{
         this.tour = tour;
     }
 
-    public void attaquer(Carreau carreauAttaque) {
-        if (carreauSelectionne.getPiece().deplacementsPossbiles(this.table).contains(carreauAttaque.getPosition())){
-            carreauAttaque.enleverPiece();
-            deplacerPiece(carreauSelectionne,carreauAttaque,carreauSelectionne.getPiece());
-            this.changerTour();
-        }
-        carreauSelectionne=null;
-        for (Carreau car:table) {
-            car.color();
-        }
+    public Carreau getCarreauSelectionne() {
+        return carreauSelectionne;
     }
-    public boolean noirCheck(){
-        HashSet<Pair<Integer, Integer>> mouvements = new HashSet<>();
-        Pair<Integer, Integer> roiPosition = null;
-        for (Carreau c:table) {
-            if (c.getPiece()!=null){
-                if (c.getPiece() instanceof Roi && c.getPiece().getCouleur()==Couleur.Noir){
-                    roiPosition = c.getPosition();
-                }
-                else if(c.getPiece().getCouleur()==Couleur.Blanc){
-                    mouvements.addAll(c.getPiece().deplacementsPossbiles(table));
-                }
-            }
-        }
-        System.out.println("Noir : "+mouvements.contains(roiPosition));
-        return mouvements.contains(roiPosition);
-    }
-    public boolean blancCheck(){
-        HashSet<Pair<Integer, Integer>> mouvements = new HashSet<>();
-        Pair<Integer, Integer> roiPosition = null;
-        for (Carreau c:table) {
-            if (c.getPiece()!=null){
-                if (c.getPiece() instanceof Roi && c.getPiece().getCouleur()==Couleur.Blanc){
-                    roiPosition = c.getPosition();
-                }
-                else if(c.getPiece().getCouleur()==Couleur.Noir){
-                    mouvements.addAll(c.getPiece().deplacementsPossbiles(table));
-                }
-            }
-        }
-        System.out.println("Blanc : "+mouvements.contains(roiPosition));
-        return mouvements.contains(roiPosition);
+
+    public void setCarreauSelectionne(Carreau carreauSelectionne) {
+        this.carreauSelectionne = carreauSelectionne;
     }
 }

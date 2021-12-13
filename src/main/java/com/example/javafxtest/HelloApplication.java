@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException, CloneNotSupportedException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Joueur dhia=new Joueur("Dhia","Ammar");
         Joueur iss= new Joueur("Isslem","Hidoussi");
