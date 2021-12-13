@@ -35,7 +35,6 @@ public class Carreau  extends StackPane{
             Echequier e = (Echequier) this.getParent();
             if (this.getPiece()!=null){
                 if(this.getPiece().getCouleur()==e.getTour().getCouleur()){
-                    System.out.println(getPiece().toString());
                     e.colorBoxes(this.getPiece().deplacementsPossbiles(e.table));
                     e.setCarreauSelectionne(this);
                 }
@@ -50,7 +49,6 @@ public class Carreau  extends StackPane{
                         e.effectuerCoup(this);
                 }
             }
-
         });
     }
     public Carreau(Carreau carreau){

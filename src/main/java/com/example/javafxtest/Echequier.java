@@ -7,6 +7,10 @@ import javafx.scene.layout.TilePane;
 import javafx.util.Pair;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Echequier extends TilePane{
     Carreau[] table;
@@ -122,7 +126,7 @@ public class Echequier extends TilePane{
 
     public void effectuerCoup(Carreau c){
         if (carreauSelectionne.getPiece().deplacementsPossbiles(this.table).contains(c.getPosition())){
-            if (testerDeplacement(carreauSelectionne,c,carreauSelectionne.getPiece())==false){
+            if (testerMouvement(carreauSelectionne,c,carreauSelectionne.getPiece())){
                 deplacerPiece(carreauSelectionne,c,carreauSelectionne.getPiece());
                 for (Carreau car:table) {
                     car.color();
@@ -135,11 +139,16 @@ public class Echequier extends TilePane{
                         if (car.getPiece() instanceof Roi && car.getPiece().getCouleur()==carreauSelectionne.getPiece().getCouleur()){
                             car.makeRed();
                         }
-                    }
-                    else{
-                        car.color();
+                        else{
+                            car.color();
+                        }
                     }
                 }
+            }
+        }
+        else{
+            for (Carreau car:table){
+                car.color();
             }
         }
         carreauSelectionne=null;
@@ -157,30 +166,17 @@ public class Echequier extends TilePane{
                 carreauArrive.ajouterPiece(((Pion) piece).promouvoir());
             }
         }
-    }
-
-    public boolean testerDeplacement(Carreau carreauDepart,Carreau carreauArrive,Piece piece){
-        Carreau[] tableTest = new Carreau[longuer*largeur];
-        int i=0;
-        for (Carreau c: table) {
-            tableTest[i]=new Carreau(c);
-            i++;
-        }
-        for (Carreau c:tableTest) {
-
-            if (c.getPosition().getKey()==carreauDepart.getPosition().getKey() && c.getPosition().getValue()==carreauDepart.getPosition().getValue()){
-                c.setPiece(null);
-            }
-            else if (c.getPosition().getKey()==carreauArrive.getPosition().getKey() && c.getPosition().getValue()==carreauArrive.getPosition().getValue()){
-                c.setPiece(piece);
-            }
-        }
-        return switch(piece.getCouleur()){
-            case Blanc -> blancCheck(tableTest);
-            case Noir -> noirCheck(tableTest);
+        //TODO: Nouveau syntaxe de switch
+        boolean winner = switch (piece.getCouleur()){
+            case Noir -> checkmate(Couleur.Blanc) ;
+            case Blanc -> checkmate(Couleur.Noir);
         };
+        if(winner){
+            System.out.println("Checkmate!"+piece.getCouleur()+" is The winner");
+        }
+
     }
-    public boolean testerAttaque(Carreau carreauDepart,Carreau carreauArrive,Piece piece){
+    public boolean testerMouvement(Carreau carreauDepart,Carreau carreauArrive,Piece piece){
         Carreau[] tableTest = new Carreau[longuer*largeur];
         int i=0;
         for (Carreau c: table) {
@@ -195,14 +191,15 @@ public class Echequier extends TilePane{
                 c.setPiece(piece);
             }
         }
+        //TODO: Nouveau syntaxe de switch
         return switch(piece.getCouleur()){
-            case Blanc -> blancCheck(tableTest);
-            case Noir -> noirCheck(tableTest);
+            case Blanc -> !blancCheck(tableTest);
+            case Noir -> !noirCheck(tableTest);
         };
     }
     public void attaquer(Carreau carreauAttaque){
         if (carreauSelectionne.getPiece().deplacementsPossbiles(this.table).contains(carreauAttaque.getPosition())){
-            if (testerAttaque(carreauSelectionne,carreauAttaque,carreauSelectionne.getPiece())==false){
+            if (testerMouvement(carreauSelectionne,carreauAttaque,carreauSelectionne.getPiece())){
                 carreauAttaque.enleverPiece();
                 deplacerPiece(carreauSelectionne,carreauAttaque,carreauSelectionne.getPiece());
                 for (Carreau car:table) {
@@ -216,15 +213,36 @@ public class Echequier extends TilePane{
                         if (car.getPiece() instanceof Roi && car.getPiece().getCouleur()==carreauSelectionne.getPiece().getCouleur()){
                             car.makeRed();
                         }
-                    }
-                    else{
-                        car.color();
+                        else{
+                            car.color();
+                        }
                     }
                 }
             }
         }
+        else{
+            for (Carreau car:table){
+                car.color();
+            }
+        }
         carreauSelectionne=null;
     }
+    public boolean checkmate(Couleur couleur){
+        //TODO:UTILISATION DES STREAMS et des Expressions Lambda
+        List<Piece> pieces= Stream.of(table).filter(carreau -> carreau.getPiece()!=null).filter(carreau -> carreau.getPiece().getCouleur()==couleur).map(carreau -> carreau.getPiece()).collect(Collectors.toList());
+        for (Piece p: pieces) {
+            HashSet<Pair<Integer, Integer>> deplacements = p.deplacementsPossbiles(table);
+            Carreau depart= Stream.of(table).filter(carreau -> carreau.getPosition()== p.position).findAny().get();
+            List<Carreau> listeArrive=Stream.of(table).filter(carreau -> deplacements.contains(carreau.getPosition())).collect(Collectors.toList());
+            for (Carreau arrive:listeArrive) {
+                if (testerMouvement(depart,arrive,p)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public boolean noirCheck(Carreau[] table){
         HashSet<Pair<Integer, Integer>> mouvements = new HashSet<>();
         Pair<Integer, Integer> roiPosition = null;
@@ -238,7 +256,6 @@ public class Echequier extends TilePane{
                 }
             }
         }
-        System.out.println("Noir : "+mouvements.contains(roiPosition));
         return mouvements.contains(roiPosition);
     }
     public boolean blancCheck(Carreau[] table){
@@ -254,7 +271,6 @@ public class Echequier extends TilePane{
                 }
             }
         }
-        System.out.println("Blanc : "+mouvements.contains(roiPosition));
         return mouvements.contains(roiPosition);
     }
 
