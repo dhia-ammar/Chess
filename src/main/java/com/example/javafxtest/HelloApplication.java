@@ -18,13 +18,14 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException, CloneNotSupportedException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Joueur dhia=new Joueur("Ammar","Dhia");
-        Joueur iyed= new Joueur("Ben Slimene","Iyed");
+        Joueur iyed= new Joueur("Belhaj Amor","Eskander");
         Echequier ech = new Echequier(dhia,iyed);
         ech.remplire();
         Parent root = new Group(ech);
         Scene scene = new Scene(root);
-        stage.setTitle("Chess");
+        stage.setTitle("Projet Java: Jeu Echecs");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
 
     }

@@ -44,7 +44,6 @@ public class Echequier extends TilePane{
         j2.setCouleur(Couleur.Noir);
         tour =joueur_blanc;
     }
-
     void addTile(Node node){
         this.getChildren().add(node);
     }
@@ -182,7 +181,6 @@ public class Echequier extends TilePane{
                 this.winner = joueur_blanc;
             }
             termine=true;
-            System.out.println("Checkmate!"+piece.getCouleur()+" is The winner");
             Stage winnerWindow = new Stage();
             winnerWindow.setTitle("Checkmate!");
             Label checkmate = new Label("CheckMate!");
